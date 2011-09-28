@@ -1,10 +1,10 @@
-define(['item/item-list'], function(List) {
+define(function(List) {
 
     var Item = Backbone.Model.extend({
 
         // defaults can be either an object, or a function returning an object
         defaults: {
-            done: true
+            done: false
         },
 
         // Toggle the `done` state of this item.

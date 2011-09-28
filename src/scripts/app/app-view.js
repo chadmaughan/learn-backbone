@@ -12,6 +12,9 @@ define(['lib/text!./app.html','stats/stats','stats/stats-view', 'item/item', 'it
 
         initialize: function() {
 
+            // render the full app
+            $(this.el).html(AppView.template());
+
             // initialize the item collection
             this.itemList = new ItemList();
             
@@ -25,9 +28,6 @@ define(['lib/text!./app.html','stats/stats','stats/stats-view', 'item/item', 'it
         },
 
         render: function() {
-
-            // render the full app
-            $(this.el).html(AppView.template());
 
             // once the app-view template is built, we can access the #new-todo element
             this.input = this.$("#new-todo");
@@ -45,13 +45,16 @@ define(['lib/text!./app.html','stats/stats','stats/stats-view', 'item/item', 'it
 
         // Add a single to do item to the list by creating a view for it, and
         // appending its element to the `<ul>`.
-        addOne: function(item) {
+        addOne: function(todo) {
 
+            // TODO - doesn't work
             // add the order before we append it
-            item['order'] = this.itemList.nextOrder();
+            var nextOrder = this.itemList.nextOrder();
+            todo.order = this.itemList.nextOrder();
 
-            var view = new ItemView({model: item});
-            this.$("#todo-list").html(view.render().el);
+            var view = new ItemView({model: todo});
+            console.log(view.render().el);
+            this.$("#todo-list").append(view.render().el);
         },
 
         // Add all items in the **to dos** collection at once.
@@ -67,20 +70,18 @@ define(['lib/text!./app.html','stats/stats','stats/stats-view', 'item/item', 'it
                 return;
             }
 
-            alert('createOnEnter');
             this.itemList.create({text: text});
             this.input.val('');
 
-            var view = new ItemView({text: text});
-            this.$("#todo-list").html(view.render().el);
         },
 
-        // Clear all done to do items, destroying their models.
+        // Clear all done (checked) to do items, destroying their models.
         clearCompleted: function() {
-            alert('clearCompleted');
+
             _.each(this.itemList.done(), function(item) {
                 item.destroy();
             });
+
             return false;
         },
 

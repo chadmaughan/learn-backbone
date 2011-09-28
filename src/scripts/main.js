@@ -15,18 +15,5 @@ require(['require','lib/order!jquery','lib/order!underscore','lib/order!backbone
         var app = new AppView();
         $('#todoapp').append(app.render().el);
 
-//        var item = new Item();
-//        var itemView = new ItemView({'model':item});
-//
-//        $('#todoapp').append(itemView.render().el);
-//
-//        var stats = new Stats();
-//        var statsView = new StatsView({'model':stats});
-//        console.log(StatsView.template);
-//        var statsEl = statsView.render();
-//
-//        alert(statsEl.el.innerHTML);
-//        $('#todoapp').append(statsEl.el);
-
     });
 });

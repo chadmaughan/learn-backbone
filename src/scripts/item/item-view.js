@@ -1,6 +1,6 @@
 // remember that RequireJS pulls all dependent text files asynchronously
-// if you serve it from a CDN your application will be cached
-define(['lib/text!item/item.html'], function(html) {
+// if you serve it from a CDN your application will be cached and fast
+define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
 
     var ItemView = Backbone.View.extend({
 
@@ -29,6 +29,10 @@ define(['lib/text!item/item.html'], function(html) {
 
         // called as a constructor (if exists)
         initialize: function() {
+
+            console.log('initialize, this.model: ' + JSON.stringify(this.model));
+
+            // optional third argument 'this' that will be used when the callback is later invoked
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
         },
@@ -62,7 +66,7 @@ define(['lib/text!item/item.html'], function(html) {
 
         // Toggle the `"done"` state of the model.
         toggleDone: function() {
-        this.model.toggle();
+            this.model.toggle();
         },
         
         // `enter` finishes editing the item
