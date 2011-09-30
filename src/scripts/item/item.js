@@ -10,6 +10,14 @@ define(function(List) {
         // Toggle the `done` state of this item.
         toggle: function() {
             this.save({done: !this.get("done")});
+        },
+
+        // failed validations trigger an 'error' event
+        validate: function(attrs) {
+            if(attrs.text == 'read slashdot') {
+                alert('Come on, really?');
+                return 'blah blah';
+            }
         }
     });
 

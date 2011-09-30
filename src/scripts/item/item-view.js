@@ -4,6 +4,9 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
 
     var ItemView = Backbone.View.extend({
 
+        // you can bind to an existing element in an HTML page with
+        // el: $('body'),
+        
         tagName: "li",
 
         // remove the item, destroy the model
@@ -30,8 +33,12 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
         // called as a constructor (if exists)
         initialize: function() {
 
-            console.log('initialize, this.model: ' + JSON.stringify(this.model));
+            // TODO look into this
+            // underscore.js call to bind 'this' to all functions that call it
+            // _.bindAll(this, 'render');
 
+            this.input = this.$('.todo-input');
+ 
             // optional third argument 'this' that will be used when the callback is later invoked
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
@@ -51,7 +58,7 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
             var templateHtml = ItemView.template(this.model.toJSON());
             $(this.el).html(templateHtml);
 
-            // enables chained calls
+            // enables chained calls (ie obj.render().el)
             return this;
         },
 
@@ -64,15 +71,15 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
             this.input.bind('blur', _.bind(this.close, this)).val(text);
         },
 
-        // Toggle the `"done"` state of the model.
+        // Toggle the "done" state of the model.
         toggleDone: function() {
             this.model.toggle();
         },
         
-        // `enter` finishes editing the item
+        // 'enter' finishes editing the item
         updateOnEnter: function(e) {
             if (e.keyCode == 13)
-                this.close();
+                this.close;
         }
     });
 

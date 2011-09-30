@@ -53,7 +53,6 @@ define(['lib/text!./app.html','stats/stats','stats/stats-view', 'item/item', 'it
             todo.order = this.itemList.nextOrder();
 
             var view = new ItemView({model: todo});
-            console.log(view.render().el);
             this.$("#todo-list").append(view.render().el);
         },
 

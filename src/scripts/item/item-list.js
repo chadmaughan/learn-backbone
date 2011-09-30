@@ -6,6 +6,14 @@ define(['item/item'], function(Item) {
 
         localStorage: new Store("todos"),
 
+        initialize: function() {
+            this.model.bind('error', this.error, this);
+        },
+
+        error: function(model, error) {
+            alert(error);
+        },
+
         done: function() {
             return this.filter(function(todo) {
                 return todo.get('done');
@@ -17,8 +25,9 @@ define(['item/item'], function(Item) {
         },
 
         nextOrder: function() {
-            if (!this.length) return 1;
-                return this.last().get('order') + 1;
+            if (!this.length)
+                return 1;
+            return this.last().get('order') + 1;
         },
 
         comparator: function(todo) {
