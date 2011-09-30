@@ -4,7 +4,7 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
 
     var ItemView = Backbone.View.extend({
 
-        // you can bind to an existing element in an HTML page with
+        // you can also bind to an existing element in an HTML page with
         // el: $('body'),
         
         tagName: "li",
@@ -16,8 +16,13 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
 
         // switch this view into "editing" mode, displaying the input field
         edit: function() {
+            var text = this.model.get('text');
+
+            this.input = this.$('.todo-input');
+            this.input.focus();
+            this.input.val(text);
+
             $(this.el).addClass("editing");
-                this.input.focus();
         },
 
         // can be defined as a function that returns an events hash, allows
@@ -33,15 +38,17 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
         // called as a constructor (if exists)
         initialize: function() {
 
-            // TODO look into this
-            // underscore.js call to bind 'this' to all functions that call it
-            // _.bindAll(this, 'render');
-
             this.input = this.$('.todo-input');
- 
+
             // optional third argument 'this' that will be used when the callback is later invoked
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
+
+            // TODO look into this
+            // underscore.js call to bind 'this' to all functions that call it
+            // possible replacement to passing 'this' as 3rd arg above?
+            // _.bindAll(this, 'render');
+
         },
 
         // remove this view from the DOM
@@ -78,8 +85,10 @@ define(['lib/text!item/item.html', 'item/item'], function(html, Item) {
         
         // 'enter' finishes editing the item
         updateOnEnter: function(e) {
-            if (e.keyCode == 13)
+            if (e.keyCode == 13) {
+                $(this.el).removeClass("editing");
                 this.close;
+            }
         }
     });
 

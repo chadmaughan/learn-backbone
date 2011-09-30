@@ -16,7 +16,7 @@ define(function(List) {
         validate: function(attrs) {
             if(attrs.text == 'read slashdot') {
                 alert('Come on, really?');
-                return 'blah blah';
+                return 'No reading Slashdot. Only Hacker News';
             }
         }
     });
