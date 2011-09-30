@@ -12,19 +12,6 @@ require(['require','lib/order!jquery','lib/order!underscore','lib/order!backbone
 
     require(['app/app-view'], function(AppView) {
 
-        var Workspace = Backbone.Router.extend({
-
-            routes: {
-                "help": "help"    // #help
-            },
-            
-            help: function() {
-                alert('Functioning code over documentation');
-            }
-        });
-
-        Backbone.History.start({pushState: true});
-        
         var app = new AppView();
         $('#todoapp').append(app.render().el);
 
